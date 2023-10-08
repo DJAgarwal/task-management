@@ -23,6 +23,7 @@
                                 <tr>
                                     <th>Drag</th>
                                     <th>ID</th>
+                                    <th>Project</th> 
                                     <th>Name</th>
                                     <th>Priority</th>
                                     <th>Created At</th>
@@ -34,6 +35,13 @@
                                 <tr data-task-id="{{ $task->id }}">
                                     <td class="drag-handle"><i class="fas fa-grip-vertical"></i></td>
                                     <td>{{ $task->id }}</td>
+                                    <td>
+                                        @if($task->project)
+                                        {{ $task->project->name }}
+                                        @else
+                                        No Project
+                                        @endif
+                                    </td>
                                     <td>{{ $task->name }}</td>
                                     <td>#{{ $task->priority }}</td>
                                     <td>{{ date('M d, Y H:i:s', strtotime($task->created_at)) }}</td>

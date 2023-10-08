@@ -3,29 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Task;
+use App\Models\{Task,Project};
 
 class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::orderBy('priority')->get();
-        return view('tasks.index', compact('tasks'));
+        $projects = Project::all();
+        $tasks = Task::orderBy('priority')->orderBy('created_at')->get();
+        return view('tasks.index', compact('tasks','projects'));
     }
 
     public function create()
     {
-        return view('tasks.create');
+        $projects = Project::all();
+        return view('tasks.create', compact('projects'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'project_id' => 'required',
         ]);
 
         $task = new Task();
         $task->name = $request->name;
+        $task->project_id = $request->project_id;
         $task->priority = $task->getNextPriority();
         $task->save();
 
@@ -34,18 +38,24 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        return view('tasks.edit', compact('task'));
+        $projects = Project::all();
+        return view('tasks.edit', compact('task','projects'));
     }
 
     public function update(Request $request, Task $task)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'project_id' => 'required',
+            'priority' => 'required|integer',
         ]);
 
-        $task->update([
-        'name' => $request->name,
+        $task->fill([
+            'name' => $request->name,
+            'project_id' => $request->project_id,
+            'priority' => $request->priority,
         ]);
+        $task->save();
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully');
     }
