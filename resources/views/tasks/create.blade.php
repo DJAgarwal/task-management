@@ -18,14 +18,6 @@
                             <label for="name">Task Name:</label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
-                        <div class="form-group">
-                            <label for="priority">Priority:</label>
-                            <select class="form-control" id="priority" name="priority">
-                                <option value="High">High</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Low">Low</option>
-                            </select>
-                        </div>
                         <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Create</button>
                     </form>
                 </div>

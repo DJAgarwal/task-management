@@ -22,12 +22,11 @@ class TaskController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'priority' => 'required|in:High,Medium,Low',
         ]);
 
         $task = new Task();
         $task->name = $request->name;
-        $task->priority = $request->priority;
+        $task->priority = $task->getNextPriority();
         $task->save();
 
         return redirect()->route('tasks.index')->with('success', 'Task created successfully');
@@ -42,12 +41,10 @@ class TaskController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'priority' => 'required|in:High,Medium,Low',
         ]);
 
         $task->update([
         'name' => $request->name,
-        'priority' => $request->priority,
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully');

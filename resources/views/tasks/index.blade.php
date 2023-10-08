@@ -18,9 +18,10 @@
                 @endif
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table id="task-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    <th>Drag</th>
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Priority</th>
@@ -31,6 +32,7 @@
                             <tbody>
                             @foreach($tasks as $task)
                                 <tr>
+                                    <td class="drag-handle"><i class="fas fa-grip-vertical"></i></td>
                                     <td>{{ $task->id }}</td>
                                     <td>{{ $task->name }}</td>
                                     <td>{{ $task->priority }}</td>

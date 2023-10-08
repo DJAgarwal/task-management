@@ -19,14 +19,6 @@
                             <label for="name">Task Name:</label>
                             <input type="text" name="name" id="name" class="form-control" value="{{ $task->name }}" required>
                         </div>
-                        <div class="form-group">
-                            <label for="priority">Priority:</label>
-                            <select name="priority" id="priority" class="form-control">
-                                <option value="High" {{ $task->priority === 'High' ? 'selected' : '' }}>High</option>
-                                <option value="Medium" {{ $task->priority === 'Medium' ? 'selected' : '' }}>Medium</option>
-                                <option value="Low" {{ $task->priority === 'Low' ? 'selected' : '' }}>Low</option>
-                            </select>
-                        </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <button type="submit" class="btn btn-primary">Update</button>
                             <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Cancel</a>

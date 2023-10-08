@@ -9,4 +9,11 @@ class Task extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'priority'];
+    public $incrementing = false;
+
+    public function getNextPriority()
+    {
+        $latestTask = self::latest('priority')->first();
+        return $latestTask ? $latestTask->priority + 1 : 1;
+    }
 }
