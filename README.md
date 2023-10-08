@@ -1,6 +1,6 @@
 Please read this to setup the project.
 1. Unzip the folder or clone the project from git clone https://github.com/DJAgarwal/task-management.git
-2. run composer install
+2. run composer install( Not needed if you unzipped the folder)
 3. The version of PHP is 8.2.4
 4. The verion of Laravel is 10.26.2
 5. Rename the .env.example file to .env
