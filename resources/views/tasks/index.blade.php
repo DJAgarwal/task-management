@@ -17,7 +17,27 @@
                 </div>
                 @endif
                 <div class="card-body">
-                    <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="GET" action="{{ route('tasks.index') }}" class="form-inline">
+                                    <div class="form-group col-md-6" style="float:left">
+                                        <label for="project_id">Select a Project:</label>
+                                        <select class="form-control" id="project_id" name="project_id">
+                                            <option value="">All Projects</option>
+                                            @foreach($projects as $project)
+                                            <option value="{{ $project->id }}" @if($selectedProjectId == $project->id) selected @endif>
+                                            {{ $project->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6" style="float:right">
+                                        <button type="submit" class="btn btn-primary" style="margin-top: 20px;margin-left: 10px;">Search</button>
+                                    </div>  
+                                </form>
+                            </div>
+                        </div>
+                    <div class="table-responsive" style="margin-top:10px;">
                         <table id="task-table" class="table table-bordered table-striped" data-reorder-url="{{ route('tasks.reorder') }}">
                             <thead>
                                 <tr>

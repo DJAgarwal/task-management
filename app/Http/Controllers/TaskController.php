@@ -7,16 +7,25 @@ use App\Models\{Task,Project};
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $selectedProjectId = $request->project_id;
+        $tasks = Task::when($selectedProjectId, function ($query) use ($selectedProjectId) {
+            return $query->where('project_id', $selectedProjectId);
+        })
+        ->orderBy('priority')
+        ->orderBy('created_at')
+        ->get();
+
         $projects = Project::all();
-        $tasks = Task::orderBy('priority')->orderBy('created_at')->get();
-        return view('tasks.index', compact('tasks','projects'));
+
+        return view('tasks.index', compact('tasks','projects','selectedProjectId'));
     }
 
     public function create()
     {
         $projects = Project::all();
+
         return view('tasks.create', compact('projects'));
     }
 
@@ -39,6 +48,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $projects = Project::all();
+
         return view('tasks.edit', compact('task','projects'));
     }
 
@@ -63,6 +73,7 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $task->delete();
+
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully');
     }
 
@@ -76,6 +87,7 @@ class TaskController extends Controller
         }
 
         $updatedTasks = Task::orderBy('priority')->get();
+        
         return response()->json($updatedTasks);
     }
 }
