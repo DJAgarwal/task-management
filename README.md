@@ -8,4 +8,5 @@ Please read this to setup the project.
 7. run php artisan db:seed command
 8. run php artisan serve command and run the project on http://127.0.0.1:8000
 
+I attached a screenshot also about how my index page looks like.
 For any other queries, contact me on dheerajagarwal1995@gmail.com
