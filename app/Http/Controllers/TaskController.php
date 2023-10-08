@@ -57,13 +57,11 @@ class TaskController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'project_id' => 'required',
-            'priority' => 'required|integer',
         ]);
 
         $task->fill([
             'name' => $request->name,
             'project_id' => $request->project_id,
-            'priority' => $request->priority,
         ]);
         $task->save();
 
