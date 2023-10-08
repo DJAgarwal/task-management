@@ -18,7 +18,7 @@
                 @endif
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="task-table" class="table table-bordered table-striped">
+                        <table id="task-table" class="table table-bordered table-striped" data-reorder-url="{{ route('tasks.reorder') }}">
                             <thead>
                                 <tr>
                                     <th>Drag</th>
@@ -31,11 +31,11 @@
                             </thead>
                             <tbody>
                             @foreach($tasks as $task)
-                                <tr>
+                                <tr data-task-id="{{ $task->id }}">
                                     <td class="drag-handle"><i class="fas fa-grip-vertical"></i></td>
                                     <td>{{ $task->id }}</td>
                                     <td>{{ $task->name }}</td>
-                                    <td>{{ $task->priority }}</td>
+                                    <td>#{{ $task->priority }}</td>
                                     <td>{{ date('M d, Y H:i:s', strtotime($task->created_at)) }}</td>
                                     <td>
                                         <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning">Edit</a>

@@ -9,7 +9,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::orderBy('priority')->get();
         return view('tasks.index', compact('tasks'));
     }
 
@@ -54,5 +54,18 @@ class TaskController extends Controller
     {
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully');
+    }
+
+    public function reorder(Request $request)
+    {
+        $taskOrder = $request->taskOrder;
+        foreach ($taskOrder as $index => $taskId) {
+            $task = Task::find($taskId);
+            $task->priority = $index + 1;
+            $task->save();
+        }
+
+        $updatedTasks = Task::orderBy('priority')->get();
+        return response()->json($updatedTasks);
     }
 }
